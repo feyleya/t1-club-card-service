@@ -1,39 +1,60 @@
-import { useContext, useEffect, useRef } from "react";
-import { AppContext } from "../../context";
+import axios from "axios";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { validationSchemaAuth } from "../../validation";
+import ErrorMessage from "../ui/ErrorMessage";
 
 export default function Authorization() {
-    const { phoneNumber, changeField, password } = useContext(AppContext);
-    const inputRef = useRef(null);
+    const methods = useForm({
+        mode: "onBlur",
+        resolver: yupResolver(validationSchemaAuth),
+    });
 
-    useEffect(() => {
-      if (inputRef.current) {
-        inputRef.current.focus();
-      }
-    }, []);
+    const { register, formState: { errors, isValid  }} = methods;
+
+    const onSubmit = async (data) => {
+        // try {
+        //     const response = await axios.post('/api/login', data);
+
+        //     if (response.data.token) {
+        //       localStorage.setItem('token', response.data.token);
+        //       window.location.href = '/user';
+        //     }
+        // } catch (error) {
+        //     alert('Ошибка при авторизации:', error);
+        // }
+        console.log(data);
+    };
 
     return (
         <div className="authorization-page-block">
             <h2 className="authorization-page-title">
                 Авторизация
             </h2>
-            <input 
-                name="phone-number"
-                type="tel" 
-                placeholder="Телефон"
-                ref={inputRef}
-                value={phoneNumber}
-                onChange={(e) => changeField("phoneNumber", e.target.value)}
-            />
-            <input 
-                name="password"
-                type="password"
-                placeholder="Пароль"
-                value={password}
-                onChange={(e) => changeField("password", e.target.value)} 
-            />
-            <button href="/registration" className="button filed">
-                Войти
-            </button>
+            <form onSubmit={methods.handleSubmit(onSubmit)}>
+                <div className="input-block">
+                    <input {...register("phone")} 
+                        placeholder="Телефон*" 
+                        className={errors.phone?"error":""}
+                    />
+                    <ErrorMessage errors={errors.phone}/>
+                </div>
+                <div className="input-block">
+                    <input type="password" {...register("password")} 
+                        placeholder="Пароль*" 
+                        className={errors.password?"error":""}
+                    />
+                    <ErrorMessage errors={errors.password}/>
+                </div>
+                <div className="buttons-block">
+                    <button 
+                        type="submit" 
+                        disabled={!isValid}
+                        className={"button " + (isValid?"filed":"nonactive")}
+                    >Войти</button>
+                </div>
+            </form>
+
 
         </div>
     );

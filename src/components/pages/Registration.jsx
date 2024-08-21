@@ -1,69 +1,34 @@
-import { useContext, useEffect, useRef } from "react";
-import { AppContext } from "../../context";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { validationSchemaPartOne, validationSchemaPartTwo } from "../../validation";
+import RegPartOne from "../ui/RegPartOne";
+import RegPartTwo from "../ui/RegPartTwo";
 
 export default function Registration() {
-    const { 
-        phoneNumber, 
-        changeField, 
-        password, 
-        passCheck,
-        checkPass,
-    } = useContext(AppContext);
-    const inputRef = useRef(null);
+    const [regPart, setRegPart] = useState(2);
 
-    useEffect(() => {
-      if (inputRef.current) {
-        inputRef.current.focus();
-      }
-    }, []);
+    const methods = useForm({
+        mode: "onBlur",
+        resolver: yupResolver(regPart === 1 ? validationSchemaPartOne : validationSchemaPartTwo),
+    });
 
-    const changeRegistration = () => {
-
-    }
+    const onSubmit = (data) => {
+        console.log("Form data:", data);
+    };
 
     return (
         <div className="registration-page-block">
             <h2 className="registration-page-title">
                 Регистрация
             </h2>
-            <input 
-                name="phone-number"
-                type="tel" 
-                placeholder="Телефон"
-                ref={inputRef}
-                value={phoneNumber}
-                onChange={(e) => changeField("phoneNumber", e.target.value)}
-            />
-            <input 
-                name="password"
-                type="password"
-                placeholder="Пароль"
-                value={password}
-                onChange={(e) => changeField("password", e.target.value)} 
-            />
-            <input 
-                className={"equal-"+checkPass}
-                name="check-password"
-                type="password"
-                placeholder="Повторите пароль"
-                onBlur={(e) => passCheck(e.target.value, password)}
-            />
-
-            {/* <input 
-                name="lastname"
-                type="text" 
-                placeholder="Фамилия"
-                ref={inputRef}
-                value={lastname}
-                onChange={(e) => changeField("lastname", e.target.value)}
-            /> */}
-            <button 
-                href="/registration" 
-                className={(checkPass)?"button filed":"button nonactive"}
-            >
-                Зарегистрироваться
-            </button>
-
+            <form onSubmit={methods.handleSubmit(onSubmit)}>
+                {(regPart == 1)?(
+                    <RegPartOne methods={methods} setRegPart={setRegPart}/>
+                ):(
+                    <RegPartTwo methods={methods} setRegPart={setRegPart}/>
+                )}
+            </form>
         </div>
     );
 }

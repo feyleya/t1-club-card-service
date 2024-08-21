@@ -7,6 +7,7 @@
   --grey: #ACACAC;
   --black: #3B3B3B;
   --pink: #FFBEBE;
+  --hover-pink: #ff9595;
 }
 
 * {
@@ -92,6 +93,10 @@ button{
   cursor: pointer;
 }
 
+form{
+  width: 100%;
+}
+
 .button{
   cursor: pointer;
   text-decoration: none;
@@ -103,10 +108,11 @@ button{
   border-radius: 15px;
 }
 
-.button.text-button{
+.text-button{
   border: none;
   background: none;
   color: var(--blue);
+  text-decoration: none;
 }
 
 .button.unfiled{
@@ -134,7 +140,10 @@ button.nonactive{
 }
 
 .buttons-block{
-  display: flex;
+  display: inline-flex;
+  margin-top: 10px;
+  flex-wrap: nowrap;
+  justify-content: center;
 }
 
 .buttons-block .button:first-child{
@@ -142,8 +151,9 @@ button.nonactive{
 }
 
 .preview-text{
-  margin-bottom: 25px;
+  margin-bottom: 10px;
   text-align: left;
+  width: 330px;
 }
 
 .preview-page-block{
@@ -168,19 +178,103 @@ input{
   padding: 7px 70px 10px 70px;
   text-align: center;
   outline: none;
-  margin-bottom: 10px;
   width: 100%;
 }
 
-input.equal-false{
+input.error{
   border-color: var(--pink);
 }
 
-input:last-of-type{
-  margin-bottom: 20px;
+.input-block{
+  margin-bottom: 10px;
+  position: relative;
 }
+
+/* form div{
+  margin-bottom: 10px;
+} */
+
+input[type="date"]{
+  text-align: right;
+  padding: 7px 40px 10px 40px;
+}
+
+input[type="checkbox"]{
+  padding: 0;
+  width: min-content;
+}
+
+input[type="radio"]{
+}
+
+label.date{
+  position: absolute;
+  z-index: 100;
+  top: 19px;
+  transform: translateY(-60%);
+  left: 40px;
+  font-size: 14px;
+  color: #8b8b8b;
+}
+
+.birth-block{
+  flex-grow: 1;
+  position: relative;
+}
+
+.terms-block label{
+  flex-grow: 1;
+  text-align: left;
+  padding-left: 10px;
+  color: #8b8b8b;
+}
+
+.terms-block label.error{
+  color: var(--hover-pink);
+}
+
+.terms-block{
+  padding-left: 20px;
+  margin-bottom: 10px;
+}
+
+/* input:last-of-type{
+  margin-bottom: 20px;
+} */
 
 input:focus-visible{
   border-color: var(--grey);
   outline: none;
 }
+
+.birth-gender-block, .terms-block{
+  display: flex;
+  align-items: center;
+}
+
+.gender-block{
+  display: flex;
+  margin-left: 15px;
+  margin-bottom: 16px;
+}
+
+.gender-block span{
+  display: flex;
+  margin-left: 10px;
+}
+
+.gender-block span label{
+  margin-right: 3px;
+}
+
+.err-text{
+  /* position: absolute;
+  right: -20px;
+  top: 50%;
+  transform: translateY(-50%);
+  transform: translateX(100%) translateY(-50%); */
+  color: var(--hover-pink);
+  text-wrap: nowrap;
+  font-size: 12px;
+}
+

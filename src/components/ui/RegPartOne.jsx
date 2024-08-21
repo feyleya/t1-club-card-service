@@ -1,51 +1,68 @@
-import { useLocation } from "react-router-dom";
+import {useEffect, useState  } from "react";
+import { isValidCode } from "../../validation";
+import ErrorMessage from "./ErrorMessage";
 
-export default function RegPartOne() {
+export default function RegPartOne({ methods, setRegPart }) {
+    const { register, setValue, formState: { errors, isValid  } } = methods;
+    const [isAdmin, setIsAdmin] = useState(false);
+    const [code, setCode] = useState(undefined);
+
     useEffect(() => {
         const searchParams = new URLSearchParams(window.location.search);
-      
-        if (searchParams.get("param") === "admicode") {
-            setIsAdminCode(true);
-        }
-
-        if (inputRef.current) {
-        inputRef.current.focus();
+        if(searchParams.get("admincode")){
+            const decoded = atob(searchParams.get("admincode"));
+            if (decoded && isValidCode(decoded)) {
+                setIsAdmin(true);
+                const masked = decoded.slice(0, 4) + decoded.slice(4, -4).replace(/./g, "*") + decoded.slice(-4);
+                setCode(masked);
+                setValue("adminCode", decoded);
+            }
         }
     }, []);
 
     return(
-        <div className="registration-part1-block">
-            <input 
-                name="phone-number"
-                type="tel" 
-                placeholder="Телефон"
-                ref={inputRef}
-                value={phoneNumber}
-                onChange={(e) => changeField("phoneNumber", e.target.value)}
-            />
-            <input 
-                name="password"
-                type="password"
-                placeholder="Пароль"
-                value={password}
-                onChange={(e) => changeField("password", e.target.value)} 
-            />
-            <input 
-                className={"equal-"+checkPass}
-                name="check-password"
-                type="password"
-                placeholder="Повторите пароль"
-                onBlur={(e) => passCheck(e.target.value, password)}
-            />
-            {isAdminCode ? (
-                <input 
-                className={"equal-"+checkPass}
-                name="check-password"
-                type="password"
-                placeholder="Повторите пароль"
-                onBlur={(e) => passCheck(e.target.value, password)}
-            />
-            ) : ""}
-        </div>
+        <>
+            <div className="input-block">
+                <input {...register("phone")} 
+                    placeholder="Телефон*" 
+                    className={errors.phone?"error":""}
+                />
+                <ErrorMessage errors={errors.phone}/>
+            </div>
+
+            <div className="input-block">
+                <input type="password" {...register("password")} 
+                    placeholder="Пароль*" 
+                    className={errors.password?"error":""}
+                />
+                <ErrorMessage errors={errors.password}/>
+            </div>
+
+            <div className="input-block">
+                <input type="password" {...register("confirmPassword")} 
+                    placeholder="Повторите пароль*" 
+                    className={errors.confirmPassword?"error":""}
+                />
+                <ErrorMessage errors={errors.confirmPassword}/>
+            </div>
+
+            {isAdmin && (
+                <div className="input-block">
+                    <input value={code} readOnly/>
+                </div>
+            )}
+
+            {isValid && (
+                <div className="buttons-block">
+                    <button 
+                        type="button" 
+                        onClick={() => setRegPart(2)}
+                        className="button filed"
+                    >
+                    Продолжить
+                    </button>
+                </div>
+            )}
+        </>
     )
 }

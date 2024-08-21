@@ -5,7 +5,7 @@ export default function Homepage(){
                 Зарегистрируйтесь в клубной программе T1 и получайте выгоду от всех покупок.
             </p>
             <div className="buttons-block">
-                <a href="/authorization" className="button unfiled">
+                <a href="/login" className="button unfiled">
                     Войти
                 </a>
                 <a href="/registration" className="button filed">
