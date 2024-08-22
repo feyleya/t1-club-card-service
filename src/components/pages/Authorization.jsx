@@ -1,8 +1,8 @@
-import axios from "axios";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { validationSchemaAuth } from "../../validation";
+import { validationSchemaAuth } from "../../additional/validation";
 import ErrorMessage from "../ui/ErrorMessage";
+import { useAuth } from "../../additional/requests";
 
 export default function Authorization() {
     const methods = useForm({
@@ -12,18 +12,10 @@ export default function Authorization() {
 
     const { register, formState: { errors, isValid  }} = methods;
 
-    const onSubmit = async (data) => {
-        // try {
-        //     const response = await axios.post('/api/login', data);
+    const { handleAuth } = useAuth();
 
-        //     if (response.data.token) {
-        //       localStorage.setItem('token', response.data.token);
-        //       window.location.href = '/user';
-        //     }
-        // } catch (error) {
-        //     alert('Ошибка при авторизации:', error);
-        // }
-        console.log(data);
+    const onSubmit = (data) => {
+        handleAuth('/api/login', data);
     };
 
     return (

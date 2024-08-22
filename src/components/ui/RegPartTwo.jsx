@@ -1,4 +1,4 @@
-import { terms } from "../../constants";
+import { terms } from "../../additional/constants";
 import ErrorMessage from "./ErrorMessage";
 
 export default function RegPartTwo({ methods, setRegPart }) {

@@ -1,5 +1,5 @@
 import {useEffect, useState  } from "react";
-import { isValidCode } from "../../validation";
+import { isValidCode } from "../../additional/validation";
 import ErrorMessage from "./ErrorMessage";
 
 export default function RegPartOne({ methods, setRegPart }) {

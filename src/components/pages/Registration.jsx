@@ -1,20 +1,23 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { validationSchemaPartOne, validationSchemaPartTwo } from "../../validation";
+import { validationSchemaPartOne, validationSchemaPartTwo } from "../../additional/validation";
 import RegPartOne from "../ui/RegPartOne";
 import RegPartTwo from "../ui/RegPartTwo";
+import { useAuth } from "../../additional/requests";
 
 export default function Registration() {
-    const [regPart, setRegPart] = useState(2);
+    const [regPart, setRegPart] = useState(1);
 
     const methods = useForm({
         mode: "onBlur",
         resolver: yupResolver(regPart === 1 ? validationSchemaPartOne : validationSchemaPartTwo),
     });
 
+    const { handleAuth } = useAuth();
+
     const onSubmit = (data) => {
-        console.log("Form data:", data);
+        handleAuth('/api/reg', data);
     };
 
     return (
