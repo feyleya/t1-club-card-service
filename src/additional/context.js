@@ -5,6 +5,9 @@ export const AppContext = createContext();
 
 const initialState = {
     isAuthorized: false,
+    curPage:"Карта",
+    cardStyle:"black-default",
+    privilegia: "vip",
 }
 
 export const ContextProvider = ({ children }) => {
@@ -16,6 +19,9 @@ export const ContextProvider = ({ children }) => {
       },
       logout: () => {
         dispatch({ type: 'LOGOUT' });
+      },
+      changePage: (page) => {
+        dispatch({ type: 'CHANGE_PAGE', payload: {page: page} });
       },
     }), [dispatch]);
   

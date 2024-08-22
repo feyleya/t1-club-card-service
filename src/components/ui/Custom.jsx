@@ -1,4 +1,4 @@
-export default function QrCode(){
+export default function Custom(){
     return(
         <div className="user-page-block">
             

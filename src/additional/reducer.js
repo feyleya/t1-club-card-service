@@ -10,6 +10,11 @@ export function reducer(state, {type, payload}) {
                 ...state,
                 isAuthorized: false,
             };
+        case "CHANGE_PAGE":
+            return {
+                ...state,
+                curPage: payload.page,
+            }
         default:
             return state;
     }

@@ -73,7 +73,7 @@ main{
   padding: 30px;
   text-align: center;
   flex: 1;
-  padding-top: 50px;
+  padding-top: 80px;
 }
 
 footer{
@@ -278,3 +278,130 @@ input:focus-visible{
   font-size: 12px;
 }
 
+/* меню */
+.menu-block{
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 20px;
+}
+
+.menu-block button{
+  margin-bottom: 10px;
+}
+
+.menu-item.selected{
+  color: var(--blue);
+}
+
+/* карта */
+
+.card-block{
+  max-width: 560px;
+  max-height: 360px;
+  position: relative;
+  width: 40vw;
+}
+
+
+
+.default .card-chip{
+  position: absolute;
+  right: 9%;
+  top: 50%;
+  transform: translateY(-50%);
+  max-width: 72px;
+  max-height: 56px;
+  width: 13%;
+}
+
+.default .card-logo{
+  position: absolute;
+  top: 13%;
+  left: 9%;
+  max-width: 94px;
+  max-height: 67px;
+  width: 17%;
+}
+
+.default .card-number{
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 9%;
+  text-align: left;
+}
+
+.default .card-username{
+  position: absolute;
+  bottom: 13%;
+  left: 9%;
+  text-align: left;
+}
+
+.user-page-content{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@media (min-width: 300px){
+  .card-block{
+    width: 100%;
+  }
+
+  .card-username{
+    font-size: calc(5px + 2vw);
+  }
+
+  .card-number{
+    font-size: calc(10px + 2vw);
+  }
+
+  .user-page-content{
+    flex-direction: column;
+  }
+}
+
+@media (min-width: 500px){
+  .card-block{
+    width: 60%;
+  }
+
+  .card-username{
+    font-size: calc(3px + 2vw);
+  }
+
+  .card-number{
+    font-size: calc(7px + 2vw);
+  }
+
+  .user-page-content{
+    flex-direction: row;
+  }
+}
+
+@media (min-width: 1000px){
+  .card-number{
+    font-size: 26px;
+  }
+  
+  .card-username{
+    font-size: 20px;
+  }
+}
+
+.default .card-image{
+  width: 100%;
+  height: auto;
+  border-radius: 2vw;
+}
+
+.close-card{
+  color: var(--grey);
+  position: absolute;
+  bottom: -20px;
+  white-space: nowrap;
+  left: 50%;
+  transform: translateX(-50%);
+}
