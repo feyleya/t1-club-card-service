@@ -1,30 +1,53 @@
-import {Routes, Route, Navigate } from "react-router-dom";
+import {Routes, Route, Navigate, useNavigate } from "react-router-dom";
+import { useEffect, useState, useContext } from "react";
+import { AppContext } from "../../additional/context";
+
+import { getUserRole, changeStatus } from "../../additional/requests";
 
 import Homepage from "../pages/Homepage";
 import Registration from "../pages/Registration";
 import Authorization from "../pages/Authorization";
 import User from "../pages/User";
 import Admin from "../pages/Admin";
-import { getUserRole } from "../../additional/requests";
+
 
 export default function Main(){
-    const isAuthenticated = () => {
-        const token = localStorage.getItem('token');
-        return !!token;
-    };
+    const { tempStatus, changeTempStatus } = useContext(AppContext);
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        changeStatus(tempStatus);
+        switch(tempStatus){
+            case 91:
+                navigate("/login");
+                break;
+            case 92:
+                navigate("/user");
+                break;
+            case 93:
+            case 94:
+                navigate("/admin");
+                break;
+        }       
+    }, [tempStatus]);
 
     const PrivateRoute = ({ element: Element, requiredRole }) => {
-        if (!isAuthenticated()) {
+        const { tempStatus } = useContext(AppContext);
+
+        if (tempStatus === 90 || tempStatus === 91) {
             return <Navigate to="/" />;
         }
+        // if (requiredRole === userRole && (tempStatus === 93 || tempStatus === 94) ) {
+        //     return <Navigate to="/admin" />;
+        // }
 
-        const userRole = getUserRole();
-        if (requiredRole && userRole !== requiredRole) {
-            return <Navigate to="/user" />;
-        }
+        // if ((requiredRole === userRole || userRole === "superadmin") && tempStatus === 92) {
+        //     return <Navigate to="/user" />;
+        // }
 
         return <Element />;
     };
+
 
     return(
         <main className="content-inner">
@@ -32,7 +55,7 @@ export default function Main(){
                 <Route path="/" element={<Homepage/>}/>
                 <Route path="/registration" element={<Registration/>}/>
                 <Route path="/login" element={<Authorization/>}/>
-                <Route path="/user" element={<PrivateRoute element={User} />} />
+                <Route path="/user" element={<PrivateRoute element={User} requiredRole="user"/>} />
                 <Route path="/admin" element={<PrivateRoute element={Admin} requiredRole="admin"/>} />
             </Routes>
         </ main>

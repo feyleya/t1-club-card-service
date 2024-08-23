@@ -14,7 +14,17 @@ export function reducer(state, {type, payload}) {
             return {
                 ...state,
                 curPage: payload.page,
-            }
+            };
+        case "CHANGE_AUTORIZED":
+            return{
+                ...state,
+                isAuthorized: payload.status,
+            };
+        case "CHANGE_TEMP_STATUS":
+            return {
+                ...state,
+                tempStatus: payload.status,
+            };
         default:
             return state;
     }

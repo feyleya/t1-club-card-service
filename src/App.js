@@ -1,16 +1,27 @@
 import Header from "./components/general/Header";
 import Main from "./components/general/Main";
 import Footer from "./components/general/Footer";
-import { ContextProvider } from "./additional/context";
+import { useEffect, useContext } from "react";
+import { AppContext } from "./additional/context";
+import { checkAuth } from "./additional/requests";
 
 export default function App() {
+  const { changeTempStatus } = useContext(AppContext);
+  useEffect(() => {
+      const checkAuthorization = async () => {
+          const authStatus  = await checkAuth();
+          changeTempStatus(authStatus);
+      };
+
+      checkAuthorization();
+  }, []);
+
+
   return (
     <div className="content">
-      <ContextProvider>
         <Header/>
         <Main/>
-      </ContextProvider>
-      <Footer/>
+        <Footer/>
     </div>
   );
 }

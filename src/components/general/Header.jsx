@@ -1,13 +1,13 @@
 import { useContext } from "react";
 import { AppContext } from "../../additional/context";
+import { logout } from "../../additional/requests";
 
 export default function Header() {
-    const { isAuthorized, logout} = useContext(AppContext);
+    const { tempStatus, changeTempStatus} = useContext(AppContext);
 
     const handleLogout = () => {
         localStorage.removeItem('token');
-        logout();
-        window.location.href = '/login';
+        window.location.href = '/';
     };
 
     return (
@@ -21,7 +21,7 @@ export default function Header() {
             </a>
             <button 
                 className="text-button"
-                style={{ display: isAuthorized ? 'block' : 'none' }}
+                style={{ display: (tempStatus > 91)?'block' : 'none' }}
                 onClick={handleLogout}
             >
                 Выход
