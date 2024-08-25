@@ -5,9 +5,19 @@ export const AppContext = createContext();
 
 const initialState = {
     curPage:"Карта",
-    cardStyle:"blue-default",
-    privilegia: "advanced",
     tempStatus: 0,
+    cardColor: "black",
+    cardType: "corner",
+    privilegia: "vip",
+    cardActive: true,
+    cardNumber: 0,
+    userName: "Ivan",
+    userLastname: "Ivanov",
+    userMiddlename: "",
+    userEmail:"",
+    userBirth: "2002-01-10",
+    userGender: "male",
+     
 }
 
 export const ContextProvider = ({ children }) => {
@@ -17,9 +27,9 @@ export const ContextProvider = ({ children }) => {
       changePage: (page) => {
         dispatch({ type: 'CHANGE_PAGE', payload: {page: page} });
       },
-      changeTempStatus: (status) => {
-        dispatch({ type: 'CHANGE_TEMP_STATUS', payload: {status: status} });
-      }
+      updateState: (updates) => {
+        dispatch({ type: 'UPDATE_STATE', payload: updates });
+    },
     }), [dispatch]);
   
     return (

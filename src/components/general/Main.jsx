@@ -12,7 +12,7 @@ import Admin from "../pages/Admin";
 
 
 export default function Main(){
-    const { tempStatus, changeTempStatus } = useContext(AppContext);
+    const { tempStatus } = useContext(AppContext);
     const navigate = useNavigate();
 
     useEffect(() => {

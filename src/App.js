@@ -6,11 +6,11 @@ import { AppContext } from "./additional/context";
 import { checkAuth } from "./additional/requests";
 
 export default function App() {
-  const { changeTempStatus } = useContext(AppContext);
+  const { updateState } = useContext(AppContext);
   useEffect(() => {
       const checkAuthorization = async () => {
           const authStatus  = await checkAuth();
-          changeTempStatus(authStatus);
+          updateState({ tempStatus: authStatus });
       };
 
       checkAuthorization();

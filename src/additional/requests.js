@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { useContext } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { AppContext } from './context';
+import { jwtDecode } from 'jwt-decode';
 
 // получение роли пользователя из токена
 export const getUserRole = () => {
@@ -9,7 +9,7 @@ export const getUserRole = () => {
     if (!token) return null;
 
     try {
-        const payload = JSON.parse(atob(token.split('.')[1]));
+        const payload = jwtDecode(token);
         return payload.role; 
     } catch (e) {
         return null;
@@ -27,7 +27,7 @@ export const takeStatus = () => {
 
 //авторизация пользователя
 export const useAuth = () => {
-  const { changeTempStatus } = useContext(AppContext);
+  const { updateState } = useContext(AppContext);
 
   const handleAuth = async (url, data) => {
     try {
@@ -37,17 +37,27 @@ export const useAuth = () => {
             const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoidXNlciJ9.04wRHoeP0SL7-IWcxX-KFt6fgXT8urkjy8vyEwB0Gbc.eyJyb2xlIjoiYWRtaW4ifQ.UHnffynBjuE3dcwEUyqldVbN-5QzMT-oiyXqkRbWJOI";
             if (token) {
                 localStorage.setItem('token', token);
+                // const decoded = jwtDecode(token);
+
+                // updateState({ cardColor: decoded.style.split("-")[0] });
+                // updateState({ cardType: decoded.style.split("-")[1] });
+                // updateState({ privilegia: decoded.privilegia});
+                // updateState({ cardActive: decoded.active });
+                // updateState({ cardNumber: decoded.cardnumber });
+                // updateState({ userName: decoded.name });
+                // updateState({ userLastname: decoded.lastname });
+
             }
         }
 
         const role = getUserRole();
         if (role === 'user') {
-            await changeTempStatus(92);
+            await updateState({ tempStatus: 92 });
         } else {
             if (role === 'admin') {
-                await changeTempStatus(93);
+                await updateState({ tempStatus: 93 });
             } else {
-                await changeTempStatus(94);
+                await updateState({ tempStatus: 94 });
             }
         } 
 
@@ -83,22 +93,56 @@ export const checkAuth = async () => {
 
             const valid = response.data.isValid;
             if(valid === false){
-                return 91; //токен невалидный
+                return 91;
             } else{
                 const role = getUserRole();
                 if(role === "user"){
-                    return 92; //пользователь
+                    return 92;
                 }
                 if(role === "admin"){
-                    return 93; //админ
+                    return 93;
                 }
                 if(role === "superadmin"){
-                    return 94; //суперадмин
+                    return 94; 
                 }
             }
         } catch (error) {
-            // console.error('Ошибка проверки токена:', error);
             return 89;
         }
     }
-  };
+};
+
+export const blockCard = (value) => {
+    const token = localStorage.getItem('token');
+    try {
+        const response = axios.post('/api/block-card', {
+            status: value,
+        }, {
+            headers: { Authorization: `Bearer ${token}` }
+        });
+
+        if(response.data.success){
+            return true;
+        }
+    } catch (error){
+        alert(`Ошибка при блокировании карты: ${error.message}`);
+    }
+}
+
+export const setNewDesign = (color, type) => {
+    const token = localStorage.getItem('token');
+    const str = `${color}-${type}`;
+    try {
+        const response = axios.post('/api/set-design', {
+            value: str,
+        }, {
+            headers: { Authorization: `Bearer ${token}` }
+        });
+
+        if(response.data.success){
+            return true;
+        }
+    } catch (error){
+        alert(`Ошибка при выборе дизайна: ${error.message}`);
+    }
+}

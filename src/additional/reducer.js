@@ -25,6 +25,11 @@ export function reducer(state, {type, payload}) {
                 ...state,
                 tempStatus: payload.status,
             };
+        case "UPDATE_STATE":
+            return {
+                ...state,
+                ...payload,
+            };
         default:
             return state;
     }
