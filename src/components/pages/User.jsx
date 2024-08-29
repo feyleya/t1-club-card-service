@@ -1,5 +1,4 @@
 import Menu from "../ui/Menu";
-import Card from "../ui/card/Card";
 import QrCode from "../ui/QrCode";
 import EditProfile from "../ui/EditProfile";
 import Custom from "../ui/custom/Custom";
@@ -8,7 +7,9 @@ import { useContext } from "react";
 import { AppContext } from "../../additional/context";
 
 export default function User(){
-    const { curPage, cardColor, cardType } = useContext(AppContext);
+    const { curPage } = useContext(AppContext);
+    const pages = ["Карта", "QR-код", "Профиль", "Персонализация"];
+
     return(
         <div className="user-page-block">
             {(() => {
@@ -23,7 +24,7 @@ export default function User(){
                         return <CardBlock/>;
                 }
             })()}
-            <Menu/>
+            <Menu pages={pages}/>
         </div>
     );
 }

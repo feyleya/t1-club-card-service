@@ -14,10 +14,16 @@ export default function Registration() {
         resolver: yupResolver(regPart === 1 ? validationSchemaPartOne : validationSchemaPartTwo),
     });
 
-    const { handleAuth } = useAuth();
+    const { handleReg } = useAuth();
 
     const onSubmit = (data) => {
-        handleAuth('/api/reg', data);
+        //const newData = new URLSearchParams(Object.entries(data)).toString();
+        const newData = JSON.stringify(data, null, 4);
+        if(data.adminCode){
+            handleReg("/api/register-admin", newData);
+        } else{
+            handleReg("/api/register", newData);
+        }
     };
 
     return (

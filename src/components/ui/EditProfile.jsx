@@ -4,6 +4,7 @@ import { validationSchemaPartThree } from "../../additional/validation";
 import ErrorMessage from "./ErrorMessage";
 import { useContext } from "react";
 import { AppContext } from "../../additional/context";
+import { editProfile } from "../../additional/requests";
 
 export default function EditProfile() {
     const { userName,
@@ -11,7 +12,8 @@ export default function EditProfile() {
         userMiddlename,
         userEmail,
         userBirth,
-        userGender
+        userGender,
+        userId,
     } = useContext(AppContext);
 
     const defaultValues = {
@@ -31,7 +33,7 @@ export default function EditProfile() {
     } = useForm({mode: "onBlur", resolver: yupResolver(validationSchemaPartThree), defaultValues});
 
     const onSubmit = (data) => {
-        console.log(data);
+        editProfile(data, userId);
     };
 
     return (
@@ -96,7 +98,7 @@ export default function EditProfile() {
                                 <input
                                     {...register("gender")}
                                     type="radio"
-                                    value="male"
+                                    value="M"
                                 />
                             </span>
 
@@ -105,7 +107,7 @@ export default function EditProfile() {
                                 <input
                                     {...register("gender")}
                                     type="radio"
-                                    value="female"
+                                    value="F"
                                 />
                             </span>
                         </span>

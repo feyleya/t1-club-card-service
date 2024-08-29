@@ -15,7 +15,7 @@ export default function Authorization() {
     const { handleAuth } = useAuth();
 
     const onSubmit = (data) => {
-        handleAuth('/api/login', data);
+        handleAuth('/api/auth', data);
     };
 
     return (

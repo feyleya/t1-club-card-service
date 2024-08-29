@@ -4,20 +4,20 @@ import { reducer } from "./reducer";
 export const AppContext = createContext();
 
 const initialState = {
-    curPage:"Карта",
+    curPage:"",
     tempStatus: 0,
     cardColor: "black",
     cardType: "corner",
     privilegia: "vip",
     cardActive: true,
-    cardNumber: 0,
+    cardNumber: "1234 1234 1234 1234",
+    userId: 0,
     userName: "Ivan",
     userLastname: "Ivanov",
     userMiddlename: "",
     userEmail:"",
     userBirth: "2002-01-10",
-    userGender: "male",
-     
+    userGender: "M",
 }
 
 export const ContextProvider = ({ children }) => {

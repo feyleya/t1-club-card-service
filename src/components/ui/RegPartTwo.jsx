@@ -7,7 +7,7 @@ export default function RegPartTwo({ methods, setRegPart }) {
     return (
         <>  
             <div className="input-block">
-                <input {...register("firstName")} 
+                <input {...register("firstname")} 
                     placeholder="Фамилия*"
                     className={errors.firstName?"error":""}
                 />
@@ -15,7 +15,7 @@ export default function RegPartTwo({ methods, setRegPart }) {
             </div>
 
             <div className="input-block">
-                <input {...register("lastName")} 
+                <input {...register("lastname")} 
                     placeholder="Имя*"
                     className={errors.lastName?"error":""}
                 />
@@ -23,7 +23,7 @@ export default function RegPartTwo({ methods, setRegPart }) {
             </div>
 
             <div className="input-block">
-                <input {...register("middleName")} 
+                <input {...register("patronymic")} 
                     placeholder="Отчество"
                 />
                 <ErrorMessage errors={errors.middleName}/>
@@ -52,7 +52,7 @@ export default function RegPartTwo({ methods, setRegPart }) {
                             <input
                             {...register("gender")}
                                 type="radio"
-                                value="male"
+                                value="M"
                             />
                         </span>
                         
@@ -61,7 +61,7 @@ export default function RegPartTwo({ methods, setRegPart }) {
                             <input
                             {...register("gender")}
                                 type="radio"
-                                value="female"
+                                value="F"
                             />
                         </span>
                         

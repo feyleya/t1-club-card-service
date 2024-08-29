@@ -1,6 +1,6 @@
 :root{
   --blue: #00AAE6;
-  --hover-unfiled:#f7f7f7;
+  --hover-unfiled:#fafafa;
   --hover-filed:#01a0d9;
   --white: white;
   --light-grey: #D9D9D9;
@@ -104,6 +104,7 @@ form{
   text-decoration: none;
   font-size: 14px;
   padding: 7px 40px 10px 40px;
+  flex-shrink: 0;
 }
 
 .button.unfiled, .button.filed, button.nonactive{
@@ -303,7 +304,7 @@ input:focus-visible{
 }
 
 .qrcode-block img{
-  max-width: 560px;
+  max-width: 300px;
   width: 40vw;
 }
 
@@ -573,17 +574,17 @@ input:focus-visible{
   flex-grow: 1;
 }
 
-.card-block, .qrcode-block, .editprofile-block{
-  width: calc(100vw - 180px);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+.card-block, .qrcode-block, .editprofile-block, .new-admin-block{
   width: calc(100vw - 180px);
   display: flex;
   flex-direction: column;
   align-items: center;
   height: calc(100vh - 270px);
   justify-content: center;
+}
+
+.show-users-block{
+  height: 100%;
 }
 
 .custom-page-block{
@@ -596,4 +597,66 @@ input:focus-visible{
 
 .custom-menu-block .buttons-block{
   margin: 0;
+}
+
+.new-admin-block {
+  display: flex;
+  flex-direction: column; 
+  justify-content: center; 
+  align-items: center; 
+}
+
+.admin-input-block {
+  width: 100%; 
+  max-width: 500px; 
+  margin-top: 10px; 
+  display: flex;
+  align-items: center;
+}
+
+.admin-input-block input {
+  width: 100%; 
+  box-sizing: border-box;
+  user-select: none;
+  cursor: default;
+}
+
+.admin-input-block img{
+  height: 20px;
+  margin-left: 10px;
+  cursor: pointer;
+}
+
+.admin-page-block{
+  width: calc(100vw - 280px);
+}
+
+.inner-admin-page-block{
+  flex-grow: 1;
+}
+
+.aside-window .editprofile-block{
+  width: 100%;
+  display: block;
+  height: 100%;
+  padding-top: 10px;
+}
+
+.aside-window .text-button{
+  width: 100%;
+  margin-top: -5px;
+  display: block;
+}
+
+.show-users-block{
+  margin: 10px 0;
+}
+
+.aside-window .birth-block label{
+  display: none;  
+}
+
+.aside-window{
+  max-width: 400px;
+  width: 30vw;
 }

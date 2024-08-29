@@ -6,7 +6,7 @@ const images = require.context('../../../card_images', false, /\.(jpg|jpeg|png)$
 
 export default function CustomCard(props){
     const { color, type, newValue, setNewValue, important } = props;
-    const { cardColor, cardType, privilegia} = useContext(AppContext);
+    const { privilegia} = useContext(AppContext);
     
     const textColor = (color === "white"?"var(--blue)":"white");
     const backgroundImage = images(`./${color}-${privilegia}.jpg`);

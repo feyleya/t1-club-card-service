@@ -25,9 +25,9 @@ export const validationSchemaPartOne = yup.object().shape({
   });
 
 export const validationSchemaPartTwo = yup.object().shape({
-    firstName: yup.string().required(required),
-    lastName: yup.string().required(required),
-    middleName: yup.string(),
+    firstname: yup.string().required(required),
+    lastname: yup.string().required(required),
+    patronymic: yup.string(),
     email: yup.string().email(emailText).nullable(),
     birthDate: yup
       .date()

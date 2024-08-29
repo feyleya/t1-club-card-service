@@ -11,8 +11,12 @@ export default function App() {
       const checkAuthorization = async () => {
           const authStatus  = await checkAuth();
           updateState({ tempStatus: authStatus });
+          if(authStatus == 92){
+            updateState({ curPage: "Карта" });
+          } else if(authStatus > 92){
+            updateState({ curPage: "Пользователи" });
+          }
       };
-
       checkAuthorization();
   }, []);
 
