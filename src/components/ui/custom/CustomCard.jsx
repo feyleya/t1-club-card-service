@@ -1,15 +1,15 @@
 import ChipLogo from "../card/ChipLogo";
 import { useContext } from "react";
 import { AppContext } from "../../../additional/context";
-
-const images = require.context('../../../card_images', false, /\.(jpg|jpeg|png)$/);
+import { images } from "../../../additional/constants";
 
 export default function CustomCard(props){
     const { color, type, newValue, setNewValue, important } = props;
     const { privilegia} = useContext(AppContext);
     
     const textColor = (color === "white"?"var(--blue)":"white");
-    const backgroundImage = images(`./${color}-${privilegia}.jpg`);
+    const imageKey = `${color}-${privilegia}.jpg`;
+    const backgroundImage = images[imageKey];
 
     const temp = important === "color" ? color : type;
     const isSelected = newValue === temp;

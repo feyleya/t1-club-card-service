@@ -1,7 +1,7 @@
-import ChipWhite from "../../../card_images/chip-white-shaded.png";
-import ChipBlue from "../../../card_images/chip-blue-shaded.png";
-import LogoWhite from "../../../card_images/logo-white-shaded.png";
-import LogoBlue from "../../../card_images/logo-blue-shaded.png";
+import ChipWhite from "./card_images/chip-white-shaded.png";
+import ChipBlue from "./card_images/chip-blue-shaded.png";
+import LogoWhite from "./card_images/logo-white-shaded.png";
+import LogoBlue from "./card_images/logo-blue-shaded.png";
 
 export default function ChipLogo(props) {
     const { color } = props;

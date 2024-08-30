@@ -6,18 +6,18 @@ export const AppContext = createContext();
 const initialState = {
     curPage:"",
     status: 90,
-    cardColor: "black",
-    cardType: "corner",
+    cardColor: "",
+    cardType: "",
     privilegia: "standart",
     cardActive: true,
-    cardNumber: "1234 1234 1234 1234",
+    cardNumber: "",
     userId: 0,
-    userName: "Ivan",
-    userLastname: "Ivanov",
+    userName: "",
+    userLastname: "",
     userMiddlename: "",
     userEmail:"",
-    userBirth: "2002-01-10",
-    userGender: "M",
+    userBirth: "",
+    userGender: "",
 }
 
 export const ContextProvider = ({ children }) => {

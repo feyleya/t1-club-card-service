@@ -59,44 +59,14 @@ export const useAuth = () => {
     }
   };
 
-  const handleAuth = async (data) => {
-    try {
-        if(data){
-            const response = await axios.post(`${URL}${apiAuth}`, qs.stringify(data), { headers: {'Content-Type' : 'application/x-www-form-urlencoded'}});
-            if (response.status == 200) {
-                updateState({ userId:  response.data.userId});
-                const token = response.data.token;
-                if (token) {
-                    localStorage.setItem('token', token);
-                    const role = getUserRole();
-
-                    if (role === 'user') {
-                        await updateState({ status: 92 });
-                        updateState({ curPage: "Карта" });
-                    } else {
-                        if (role === 'admin') {
-                            await updateState({ status: 93 });
-                        } else {
-                            await updateState({ status: 94 });
-                        }
-                        updateState({ curPage: "Пользователи" });
-                    }
-                }
-            }
-        }
-    } catch (error) {
-      alert(`Ошибка при выполнении авторизации : ${error.message}`);
-    }
-  };
-
   const getCard = async (id) => {
     const token = takeToken();
     try {
         if(token){
-            const response = await axios.get(`${URL}${apiCard}${id}`, {}, {
+            const response = await axios.get(`${URL}${apiCard}/${id}`, {
                 headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' }
             });
-            if (response.status = 200) {
+            if (response.status === 200) {
                 updateState({ cardColor: response.data.color });
                 updateState({ cardType: response.data.layout });
                 updateState({ privilegia: response.data.privilegeLevel.toLowerCase()});
@@ -111,6 +81,37 @@ export const useAuth = () => {
         } 
     } catch (error) {
       alert(`Ошибка при получении карты : ${error.message}`);
+    }
+  };
+
+  const handleAuth = async (data) => {
+    try {
+        if(data){
+            const response = await axios.post(`${URL}${apiAuth}`, qs.stringify(data), { headers: {'Content-Type' : 'application/x-www-form-urlencoded'}});
+            if (response.status == 200) {
+                updateState({ userId:  response.data.userId});
+                const token = response.data.access_token;
+                if (token) {
+                    localStorage.setItem('token', token);
+                    const role = getUserRole();
+
+                    if (role === 'user') {
+                        await updateState({ status: 92 });
+                        updateState({ curPage: "Карта" });
+                        getCard(response.data.userId);
+                    } else {
+                        if (role === 'admin') {
+                            await updateState({ status: 93 });
+                        } else {
+                            await updateState({ status: 94 });
+                        }
+                        updateState({ curPage: "Пользователи" });
+                    }
+                }
+            }
+        }
+    } catch (error) {
+      alert(`Ошибка при выполнении авторизации : ${error.message}`);
     }
   };
 
@@ -185,7 +186,7 @@ export const setNewDesign = async (color, type, id) => {
         type: type
     };
     try {
-        const response = await axios.post(`${URL}${apiChangeDesign}/${id}`, json, {
+        const response = await axios.patch(`${URL}${apiChangeDesign}/${id}`, json, {
             headers: { Authorization: `Bearer ${token}` }
         });
 

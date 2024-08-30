@@ -1,24 +1,27 @@
 import ChipLogo from "./ChipLogo";
 import { useContext } from "react";
 import { AppContext } from "../../../additional/context";
-
-const images = require.context('../../../card_images', false, /\.(jpg|jpeg|png)$/);
+import { images } from "../../../additional/constants";
+  
 
 export default function Card(props){
     const { color, type } = props;
-    const { privilegia} = useContext(AppContext);
+    const { privilegia, cardNumber, userLastname, userName } = useContext(AppContext);
+    console.log(color, type);
     
     const textColor = (color === "white"?"var(--blue)":"white");
-    const backgroundImage = images(`./${color}-${privilegia}.jpg`);
+    const imageKey = `${color}-${privilegia}.jpg`;
+
+    const backgroundImage = images[imageKey];
     
     return (
         <div className={`card-item ${type}`}>
             <ChipLogo color={color}/>
             <span className="card-number" style={{color: textColor}}>
-                1234 5678 8765 4321
+                {cardNumber}
             </span>
             <span className="card-username" style={{color: textColor}}>
-                IVANOV IVAN
+                {`${userName} ${userLastname}`}
             </span>
             <img className="card-image"
                 src={backgroundImage} 

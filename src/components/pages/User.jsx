@@ -3,11 +3,12 @@ import QrCode from "../ui/qr/QrCode";
 import EditProfile from "../ui/edit_profile/EditProfile";
 import Custom from "../ui/custom/Custom";
 import CardBlock from "../ui/card/CardBlock";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { AppContext } from "../../additional/context";
+import { useAuth } from "../../additional/requests";
 
 export default function User(){
-    const { curPage, privilegia, cardActive } = useContext(AppContext);
+    const { curPage, privilegia, cardActive, userId} = useContext(AppContext);
     const pages = ["Карта", "QR-код", "Профиль", (privilegia!=="standart" && cardActive)?"Персонализация":""];
 
     return(

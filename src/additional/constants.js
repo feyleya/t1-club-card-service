@@ -1,3 +1,26 @@
+import BA from "../components/ui/card/card_images/black-advanced.jpg"
+import BS from "../components/ui/card/card_images/black-standart.jpg"
+import BV from "../components/ui/card/card_images/black-vip.jpg"
+import BLA from "../components/ui/card/card_images/blue-advanced.jpg"
+import BLS from "../components/ui/card/card_images/blue-standart.jpg"
+import BLV from "../components/ui/card/card_images/blue-vip.jpg"
+import WA from "../components/ui/card/card_images/white-advanced.jpg"
+import WS from "../components/ui/card/card_images/white-standart.jpg"
+import WV from "../components/ui/card/card_images/white-vip.jpg"
+
+export const images = {
+    'black-advanced.jpg': BA,
+    'black-standart.jpg': BS,
+    'black-vip.jpg': BV,
+    'blue-advanced.jpg': BLA,
+    'blue-standart.jpg': BLS,
+    'blue-vip.jpg': BLV,
+    'white-advanced.jpg': WA,
+    'white-standart.jpg': WS,
+    'white-vip.jpg': WV,
+  };
+
+
 export const terms = "https://www.t1-consulting.ru/privacy_policy.pdf";
 export const URL = "http://localhost:8000";
 

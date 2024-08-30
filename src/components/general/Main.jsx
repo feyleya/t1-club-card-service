@@ -12,12 +12,12 @@ import Admin from "../pages/Admin";
 
 
 export default function Main(){
-    const { tempStatus } = useContext(AppContext);
+    const { status } = useContext(AppContext);
     const navigate = useNavigate();
 
     useEffect(() => {
-        changeStatus(tempStatus);
-        switch(tempStatus){
+        changeStatus(status);
+        switch(status){
             case 91:
                 navigate("/login");
                 break;
@@ -29,19 +29,19 @@ export default function Main(){
                 navigate("/admin");
                 break;
         }       
-    }, [tempStatus]);
+    }, [status]);
 
     const PrivateRoute = ({ element: Element, requiredRole }) => {
-        const { tempStatus } = useContext(AppContext);
+        const { status } = useContext(AppContext);
 
-        if (tempStatus === 90 || tempStatus === 91) {
+        if (status === 90 || status === 91) {
             return <Navigate to="/" />;
         }
-        // if (requiredRole === userRole && (tempStatus === 93 || tempStatus === 94) ) {
+        // if (requiredRole === userRole && (status === 93 || status === 94) ) {
         //     return <Navigate to="/admin" />;
         // }
 
-        // if ((requiredRole === userRole || userRole === "superadmin") && tempStatus === 92) {
+        // if ((requiredRole === userRole || userRole === "superadmin") && status === 92) {
         //     return <Navigate to="/user" />;
         // }
 
