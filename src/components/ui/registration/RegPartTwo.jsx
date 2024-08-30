@@ -1,5 +1,7 @@
-import { terms } from "../../additional/constants";
-import ErrorMessage from "./ErrorMessage";
+import { terms } from "../../../additional/constants";
+import ErrorMessage from "../other/ErrorMessage";
+import { getCurrentDate } from "../../../additional/requests";
+
 
 export default function RegPartTwo({ methods, setRegPart }) {
     const { register, formState: { errors, isValid } } = methods;
@@ -40,7 +42,7 @@ export default function RegPartTwo({ methods, setRegPart }) {
                 <div className="birth-gender-block">
                     <span className="birth-block">
                         <label className="date">Дата рождения:</label>
-                        <input type="date" {...register("birthDate")}
+                        <input type="date" {...register("birthDate")} min="1900-01-01" max={getCurrentDate()}
                             className={errors.birthDate?"error":""}
                         />
                         <ErrorMessage errors={errors.birthDate}/>                    

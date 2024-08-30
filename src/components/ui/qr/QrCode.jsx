@@ -1,7 +1,6 @@
-import QR from "../../images/QR-code.jpg"
 import QRCode from 'qrcode'
 import { useContext, useEffect, useState } from "react";
-import { AppContext } from "../../additional/context";
+import { AppContext } from "../../../additional/context";
 
 export default function QrCode(){
     const { cardNumber } = useContext(AppContext);

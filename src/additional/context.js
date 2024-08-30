@@ -5,10 +5,10 @@ export const AppContext = createContext();
 
 const initialState = {
     curPage:"",
-    tempStatus: 0,
+    status: 90,
     cardColor: "black",
     cardType: "corner",
-    privilegia: "vip",
+    privilegia: "standart",
     cardActive: true,
     cardNumber: "1234 1234 1234 1234",
     userId: 0,

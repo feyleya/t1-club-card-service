@@ -1,6 +1,5 @@
 import {useEffect, useState  } from "react";
-import { isValidCode } from "../../additional/validation";
-import ErrorMessage from "./ErrorMessage";
+import ErrorMessage from "../other/ErrorMessage";
 
 export default function RegPartOne({ methods, setRegPart }) {
     const { register, setValue, formState: { errors, isValid  } } = methods;
@@ -11,7 +10,7 @@ export default function RegPartOne({ methods, setRegPart }) {
         const searchParams = new URLSearchParams(window.location.search);
         if(searchParams.get("admincode")){
             const decoded = atob(searchParams.get("admincode"));
-            if (decoded && isValidCode(decoded)) {
+            if (decoded) {
                 setIsAdmin(true);
                 const masked = decoded.slice(0, 4) + decoded.slice(4, -4).replace(/./g, "*") + decoded.slice(-4);
                 setCode(masked);
@@ -52,17 +51,16 @@ export default function RegPartOne({ methods, setRegPart }) {
                 </div>
             )}
 
-            {isValid && (
-                <div className="buttons-block">
-                    <button 
-                        type="button" 
-                        onClick={() => setRegPart(2)}
-                        className="button filed"
-                    >
-                    Продолжить
-                    </button>
-                </div>
-            )}
+            <div className="buttons-block">
+                <button 
+                    type="button" 
+                    onClick={() => setRegPart(2)}
+                    disabled={!isValid}
+                    className={"button " + (isValid?"filed":"nonactive")}
+                >
+                Продолжить
+                </button>
+            </div>
         </>
     )
 }

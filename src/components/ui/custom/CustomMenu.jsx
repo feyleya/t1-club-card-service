@@ -5,10 +5,10 @@ import { setNewDesign } from "../../../additional/requests";
 
 export default function CustomMenu(props){
     const { chapter, setChapter, newColor, newType} = props;
-    const { cardColor, cardType, updateState} = useContext(AppContext);
+    const { userId, cardColor, cardType, updateState, privilegia} = useContext(AppContext);
 
     const handleClick = () => {
-        const req = setNewDesign(newColor, newType);
+        const req = setNewDesign(newColor, newType, userId);
         if(req){
             updateState({ cardColor: newColor});
             updateState({ cardType: newType});
@@ -18,7 +18,10 @@ export default function CustomMenu(props){
     return (
         <div className="custom-menu-block">
             <CustomMenuButton chapter={chapter} setChapter={setChapter} name={"Цвет"}/>
-            <CustomMenuButton chapter={chapter} setChapter={setChapter} name={"Дизайн"}/>
+            {privilegia == "vip"?(
+                <CustomMenuButton chapter={chapter} setChapter={setChapter} name={"Дизайн"}/>
+            ):""}
+            
             {(cardColor !== newColor || cardType !== newType)?(
                 <button 
                     type="submit" 

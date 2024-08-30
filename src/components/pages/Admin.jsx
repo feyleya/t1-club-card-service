@@ -5,8 +5,8 @@ import NewAdmin from "../ui/admin/NewAdmin";
 import ShowUsers from "../ui/admin/ShowUsers";
 import { useContext } from "react";
 import { AppContext } from "../../additional/context";
-import EditProfile from "../ui/EditProfile";
-import Menu from "../ui/Menu";
+import EditProfile from "../ui/edit_profile/EditProfile";
+import Menu from "../ui/menu/Menu";
 
 export default function Admin(){
     const { curPage } = useContext(AppContext);

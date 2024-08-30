@@ -5,24 +5,24 @@ import Card from "./Card";
 import { useAuth, takeToken } from "../../../additional/requests";
 
 export default function CardBlock(){
-    const { cardColor, cardType, updateState, cardActive } = useContext(AppContext);
+    const { userId, cardColor, cardType, updateState, cardActive } = useContext(AppContext);
     
     const { getCard } = useAuth();
 
     useEffect(() => {
-        const token = takeToken();
-        getCard(token);
+        getCard(userId);
     },[]);
 
     const handleBlock = () => {
-        if(cardActive){
-            var resp = blockCard("block");
-        } else{
-            var resp = blockCard("unlock");
-        }
-        if(resp){
-            updateState({ cardActive: !cardActive });
-        }
+        console.log("Заглушка");
+        // if(cardActive){
+        //     var resp = blockCard("block");
+        // } else{
+        //     var resp = blockCard("unlock");
+        // }
+        // if(resp){
+        //     updateState({ cardActive: !cardActive });
+        // }
     }
     
     return (

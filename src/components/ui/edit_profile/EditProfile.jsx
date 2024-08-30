@@ -1,10 +1,10 @@
+import { useContext } from "react";
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { validationSchemaPartThree } from "../../additional/validation";
-import ErrorMessage from "./ErrorMessage";
-import { useContext } from "react";
-import { AppContext } from "../../additional/context";
-import { editProfile } from "../../additional/requests";
+import ErrorMessage from "../other/ErrorMessage";
+import { AppContext } from "../../../additional/context";
+import { validationSchemaPartThree } from "../../../additional/validation";
+import { editProfile, getCurrentDate } from "../../../additional/requests";
 
 export default function EditProfile() {
     const { userName,
@@ -83,7 +83,9 @@ export default function EditProfile() {
                                 control={control}
                                 render={({ field }) => (
                                     <input 
-                                        type="date" 
+                                        type="date"
+                                        min="1900-01-01"
+                                        max={getCurrentDate()} 
                                         {...field}
                                         className={errors.birthDate ? "error" : ""}
                                     />

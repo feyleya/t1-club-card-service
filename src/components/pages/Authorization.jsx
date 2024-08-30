@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { validationSchemaAuth } from "../../additional/validation";
-import ErrorMessage from "../ui/ErrorMessage";
+import ErrorMessage from "../ui/other/ErrorMessage";
 import { useAuth } from "../../additional/requests";
 
 export default function Authorization() {
@@ -15,7 +15,7 @@ export default function Authorization() {
     const { handleAuth } = useAuth();
 
     const onSubmit = (data) => {
-        handleAuth('/api/auth', data);
+        handleAuth(data);
     };
 
     return (

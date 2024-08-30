@@ -2,9 +2,10 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { validationSchemaPartOne, validationSchemaPartTwo } from "../../additional/validation";
-import RegPartOne from "../ui/RegPartOne";
-import RegPartTwo from "../ui/RegPartTwo";
+import RegPartOne from "../ui/registration/RegPartOne";
+import RegPartTwo from "../ui/registration/RegPartTwo";
 import { useAuth } from "../../additional/requests";
+import { apiReg, apiRegAdmin } from "../../additional/constants";
 
 export default function Registration() {
     const [regPart, setRegPart] = useState(1);
@@ -17,12 +18,10 @@ export default function Registration() {
     const { handleReg } = useAuth();
 
     const onSubmit = (data) => {
-        //const newData = new URLSearchParams(Object.entries(data)).toString();
-        const newData = JSON.stringify(data, null, 4);
         if(data.adminCode){
-            handleReg("/api/register-admin", newData);
+            handleReg(apiRegAdmin, data);
         } else{
-            handleReg("/api/register", newData);
+            handleReg(apiReg, data);
         }
     };
 

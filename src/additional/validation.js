@@ -1,5 +1,5 @@
 import * as yup from "yup";
-import { required, ageText, emailText, phoneText, passLenText, passLettersText, passCheckText } from "./constants";
+import { required, ageText, emailText, phoneText, passLenText, passLettersText, passCheckText, consentText, ageMinText, ageMaxText } from "./constants";
 
 export const validationSchemaPartOne = yup.object().shape({
     phone: yup
@@ -28,7 +28,7 @@ export const validationSchemaPartTwo = yup.object().shape({
     firstname: yup.string().required(required),
     lastname: yup.string().required(required),
     patronymic: yup.string(),
-    email: yup.string().email(emailText).nullable(),
+    email: yup.string().email(emailText).required(required),
     birthDate: yup
       .date()
       .nullable()
@@ -44,12 +44,13 @@ export const validationSchemaPartTwo = yup.object().shape({
         }
         return age >= 18;
       })
-      .max(new Date(), "Birth date cannot be in the future") 
+      .min(new Date(1900, 0, 1), ageMinText)
+      .max(new Date(), ageMaxText) 
       .required(required),
-    gender: yup.string().nullable(),
+    gender: yup.string().required(required),
     consent: yup
       .bool()
-      .oneOf([true], "You must accept the terms")
+      .oneOf([true], consentText)
       .required(required),
   });
 
@@ -57,7 +58,7 @@ export const validationSchemaPartThree = yup.object().shape({
     firstName: yup.string().required(required),
     lastName: yup.string().required(required),
     middleName: yup.string(),
-    email: yup.string().email(emailText).nullable(),
+    email: yup.string().email(emailText).required(required),
     birthDate: yup
       .date()
       .nullable()
@@ -73,16 +74,17 @@ export const validationSchemaPartThree = yup.object().shape({
         }
         return age >= 18;
       })
-      .max(new Date(), "Birth date cannot be in the future") 
+      //.min(new Date(1900, 0, 1), ageMinText)
+      .max(new Date(), ageMaxText) 
       .required(required),
-    gender: yup.string().nullable(),
+    gender: yup.string().required(required),
   });
 
 export const validationSchemaAuth = yup.object().shape({
     phone: yup
       .string()
-      .required(required)
-      .matches(/^(8\d{10}|\+7\d{10})$/, phoneText),
+      .required(required),
+      //.matches(/^(8\d{10}|\+7\d{10})$/, phoneText),
     password: yup
       .string()
       .required(required)

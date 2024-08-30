@@ -1,6 +1,6 @@
 import MenuButton from "./MenuButton";
 import { useContext } from "react";
-import { AppContext } from "../../additional/context";
+import { AppContext } from "../../../additional/context";
 
 export default function Menu(props){
     const { pages } = props; 

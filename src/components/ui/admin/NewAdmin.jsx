@@ -1,16 +1,24 @@
 import { inviteAdmin } from "../../../additional/requests";
 import { useState } from "react";
-import { isValidCode } from "../../../additional/validation";
 
 export default function NewAdmin() {
     const [ link, setLink ] = useState("");
     
-    const handleClick = () => {
+    const handleClick = async () => {
         if(window.confirm("Вы действительно хотите пригласить админинистратора?")){
-            const code = inviteAdmin();
-            if(isValidCode(code)){
-                const link = `${window.location.origin}/registration/?admincode=${btoa(code)}`;
-                setLink(link);
+            try {
+                const response = await inviteAdmin(); 
+                if (response && response.data) {
+                    const code = response.data; 
+                    console.log(code);
+    
+                    const link = `${window.location.origin}/registration/?admincode=${btoa(code)}`;
+                    setLink(link); 
+                } else {
+                    alert("Не удалось получить adminCode.");
+                }
+            } catch (error) {
+                alert(`Ошибка при обработке adminCode: ${error.message}`);
             }
         }
     }

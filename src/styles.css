@@ -153,6 +153,21 @@ button.nonactive{
   margin-right: 10px;
 }
 
+.preview-block{
+  display: flex;
+  align-items: flex-end;
+    justify-content: center;
+}
+
+.preview-image{
+  max-width: 700px;
+  margin-bottom: -90px;
+  min-width: 300px;
+  margin-left: 50px;
+  margin-top: -20px;
+  margin-right: -40px;
+}
+
 .preview-text{
   margin-bottom: 10px;
   text-align: left;
